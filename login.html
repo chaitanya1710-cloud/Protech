@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
+  <style>
+    /* Fun font */
+    .fun-font {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* Paw bounce animation */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .bounce {
+      animation: bounce 1s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-blue-200 flex flex-col items-center justify-center min-h-screen space-y-4">
+
+  <!-- DormQ Logo outside the card -->
+  <h1 class="text-5xl fun-font text-teal-700 font-extrabold">DormQ</h1>
+
+  <!-- Login Card -->
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">
+    <!-- Paw icon -->
+    <div class="text-4xl text-teal-600 bounce mb-4">🐾</div>
+
+    <!-- Login Heading -->
+    <h2 class="text-2xl font-bold mb-1">Student Login</h2>
+    <p class="text-sm text-blue-600 mb-6">Enter your Student ID to join the fun!</p>
+
+    <!-- Form -->
+    <form id="loginForm" class="space-y-4">
+      <div class="text-left">
+        <label class="text-red-600 font-semibold text-sm" for="studentId">Student ID</label>
+        <input 
+          id="studentId" 
+          type="text" 
+          placeholder="e.g., FUN12345"
+          class="mt-1 w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <p id="errorText" class="text-red-500 text-sm mt-1 hidden">Student ID must be at least 5 characters.</p>
+      </div>
+
+      <button 
+        type="submit"
+        class="w-full bg-teal-700 text-white font-semibold py-2 rounded hover:bg-teal-800 transition"
+      >
+        Let's Go!
+      </button>
+    </form>
+
+    <!-- Footer Note -->
+    <p class="text-sm text-gray-500 mt-4">Having trouble? Maybe try ID '12345'. 🤷‍♂️</p>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const input = document.getElementById("studentId");
+    const errorText = document.getElementById("errorText");
+
+    form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const id = input.value.trim();
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ studentId: id })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    // success
+    window.location.href = '/dashboard.html'; // or wherever
+  } catch (err) {
+    errorText.textContent = err.message;
+    errorText.classList.remove('hidden');
+  }
+});
+
+  </script>
+
+</body>
+</html>
