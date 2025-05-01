@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dual Lister</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .bounce-once:hover {
+      animation: bounce 0.4s;
+    }
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900">
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 bg-white shadow">
+    <h1 class="text-xl font-bold">Dual Lister</h1>
+    <!-- Clickable Profile -->
+    <button onclick="alert('Profile clicked!')" class="flex items-center bounce-once transition hover:scale-105 active:scale-95">
+      <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-full w-10 h-10 ring-2 ring-gray-300" />
+      <div class="text-right ml-2">
+        <p class="font-semibold">Jane Doe</p>
+        <p class="text-sm text-gray-500">STUDENT12345</p>
+      </div>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="p-6">
+    <div class="grid md:grid-cols-2 gap-6">
+      
+      <!-- My Requests -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-xl font-bold flex items-center gap-2">
+          <span>📋</span> My Requests
+        </h2>
+        <p class="text-sm text-gray-500 mb-4">Items you have requested</p>
+        <table class="w-full text-left">
+          <thead>
+            <tr class="text-gray-600 text-sm border-b">
+              <th class="py-2">Item Name</th>
+              <th>Date Requested</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr class="hover:bg-gray-50 cursor-pointer">
+              <td class="py-2 font-medium">Vintage Lamp</td>
+              <td>July 15th, 2024</td>
+              <td>
+                <span class="inline-flex items-center gap-1 text-yellow-600 border border-yellow-500 px-2 py-0.5 rounded-full text-xs">
+                  ⏳ Pending
+                </span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50 cursor-pointer">
+              <td class="py-2 font-medium">Acoustic Guitar</td>
+              <td>July 10th, 2024</td>
+              <td>
+                <span class="inline-flex items-center gap-1 text-green-600 border border-green-500 px-2 py-0.5 rounded-full text-xs">
+                  ✅ Successful
+                </span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50 cursor-pointer">
+              <td class="py-2 font-medium">Ergonomic Chair</td>
+              <td>June 28th, 2024</td>
+              <td>
+                <span class="inline-flex items-center gap-1 text-yellow-600 border border-yellow-500 px-2 py-0.5 rounded-full text-xs">
+                  ⏳ Pending
+                </span>
+              </td>
+            </tr>
+            <tr class="hover:bg-gray-50 cursor-pointer">
+              <td class="py-2 font-medium">Monitor Stand</td>
+              <td>July 18th, 2024</td>
+              <td>
+                <span class="inline-flex items-center gap-1 text-yellow-600 border border-yellow-500 px-2 py-0.5 rounded-full text-xs">
+                  ⏳ Pending
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- My Listings -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-xl font-bold flex items-center gap-2">
+          <span>📦</span> My Listings
+        </h2>
+        <p class="text-sm text-gray-500 mb-4">Items you have listed for others</p>
+        <div class="space-y-4">
+          <button class="w-full text-left p-3 border rounded hover:bg-gray-50 transition">
+            <div class="font-bold">Mid-century Sofa</div>
+            <div class="text-sm text-gray-500">Slightly used, great condition.</div>
+            <div class="text-sm text-gray-600 mt-1">📅 July 12th, 2024</div>
+          </button>
+          <button class="w-full text-left p-3 border rounded hover:bg-gray-50 transition">
+            <div class="font-bold">Coffee Maker</div>
+            <div class="text-sm text-gray-500">Brand new, unopened box.</div>
+            <div class="text-sm text-gray-600 mt-1">📅 July 5th, 2024</div>
+          </button>
+          <button class="w-full text-left p-3 border rounded hover:bg-gray-50 transition">
+            <div class="font-bold">Mountain Bike</div>
+            <div class="text-sm text-gray-500">Used for one season, needs minor tune-up.</div>
+            <div class="text-sm text-gray-600 mt-1">📅 June 30th, 2024</div>
+          </button>
+          <button class="w-full text-left p-3 border rounded hover:bg-gray-50 transition">
+            <div class="font-bold">Desk Organizer</div>
+            <div class="text-sm text-gray-500">Helps keep workspace tidy.</div>
+            <div class="text-sm text-gray-600 mt-1">📅 July 19th, 2024</div>
+          </button>
+          <button class="w-full text-left p-3 border rounded hover:bg-gray-50 transition">
+            <div class="font-bold">External Hard Drive 1TB</div>
+            <div class="text-sm text-gray-500">Fast USB 3.0 connection.</div>
+            <div class="text-sm text-gray-600 mt-1">📅 July 16th, 2024</div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>
