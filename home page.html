@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dorm Exchange</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .neon-hover {
+      transition: all 0.3s ease;
+    }
+    .neon-hover:hover {
+      background-color: #39FF14 !important;
+      color: black !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+    }
+    .neon-hover:active {
+      background-color: #32cc10 !important;
+      transform: scale(0.98);
+    }
+
+    /* Profile icon position and clickability */
+    .profile-icon {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      text-align: center;
+      z-index: 50; /* Ensures it stays on top of other elements */
+    }
+
+    /* Make the profile icon and name clickable */
+    .profile-icon a {
+      display: block;
+      text-align: center;
+      color: inherit;
+    }
+
+    /* Add some space below search box */
+    .search-container {
+      margin-top: 90px; /* This ensures the search bar doesn't overlap with the profile */
+    }
+
+    /* Modal Style */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      display: none; /* Hidden by default */
+    }
+
+    .modal-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      z-index: 50;
+      width: 400px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-button {
+      background-color: #39FF14;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 5px;
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white p-4 shadow h-screen overflow-y-auto">
+      <h1 class="text-2xl font-bold mb-4">Dorm Exchange</h1>
+
+      <!-- Neon Buttons -->
+      <button id="makeRequestButton" class="w-full bg-gray-200 text-left p-2 rounded mb-4 neon-hover">
+        ➕ Make a Request
+      </button>
+      <button id="addItemButton" class="w-full bg-gray-200 text-left p-2 rounded mb-4 neon-hover">
+        ➕ Add Item
+      </button>
+
+      <nav>
+        <p class="font-semibold text-gray-700 mb-2">Categories</p>
+        <div class="space-y-2">
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Buy/Sell</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Lost & Found</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Assignment Help</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Books</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Electronics</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Furniture</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Clothing</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Services</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Skill Share</button>
+          <button class="w-full bg-gray-200 text-left p-2 rounded neon-hover">Other</button>
+        </div>
+      </nav>
+
+      <footer class="text-xs text-gray-400 mt-10">&copy; 2025 Dorm Exchange</footer>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6">
+
+      <!-- Search Bar (Shifted down with margin) -->
+      <div class="flex items-center space-x-2 search-container">
+        <input type="text" placeholder="Search listings..." class="flex-1 p-2 border rounded">
+        <button class="bg-gray-300 px-4 py-2 rounded neon-hover">
+          Search
+        </button>
+      </div>
+
+      <!-- Listings -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="#" class="bg-white p-4 rounded shadow hover:transform hover:scale-105 transition duration-300">
+          <h2 class="text-lg font-bold">Calculus Textbook</h2>
+          <p class="text-sm text-gray-500 mb-2">Books</p>
+          <img src="https://via.placeholder.com/300x200" alt="Item Image" class="mb-2">
+          <p>Used calculus textbook in good condition. Some highlighting.</p>
+        </a>
+
+        <a href="#" class="bg-white p-4 rounded shadow hover:transform hover:scale-105 transition duration-300">
+          <h2 class="text-lg font-bold">Desk Lamp</h2>
+          <p class="text-sm text-gray-500 mb-2">Furniture</p>
+          <img src="https://via.placeholder.com/300x200" alt="Item Image" class="mb-2">
+          <p>Adjustable desk lamp, perfect for late-night studying.</p>
+        </a>
+
+        <a href="#" class="bg-white p-4 rounded shadow hover:transform hover:scale-105 transition duration-300">
+          <h2 class="text-lg font-bold">Coding Tutoring</h2>
+          <p class="text-sm text-gray-500 mb-2">Services</p>
+          <img src="https://via.placeholder.com/300x200" alt="Item Image" class="mb-2">
+          <p>Offering coding tutoring services for beginners.</p>
+        </a>
+      </div>
+
+      <!-- Chatboxes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-xl font-bold mb-2">Personal Chatbox</h3>
+          <div class="border p-2 h-32 overflow-y-auto mb-2 text-gray-500 bg-gray-50 rounded">No messages yet...</div>
+          <div class="flex">
+            <input type="text" placeholder="Type your message..." class="flex-1 p-2 border rounded-l">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-r neon-hover">
+              Send
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-xl font-bold mb-2">Group Chatbox</h3>
+          <div class="border p-2 h-32 overflow-y-auto mb-2 text-gray-500 bg-gray-50 rounded">No messages yet...</div>
+          <div class="flex">
+            <input type="text" placeholder="Type your message..." class="flex-1 p-2 border rounded-l">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-r neon-hover">
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Profile Icon fixed to top right and clickable -->
+  <div class="profile-icon">
+    <a href="profile-page.html">
+      <img src="https://via.placeholder.com/50" alt="Profile" class="w-12 h-12 rounded-full mx-auto shadow">
+      <p class="text-sm font-semibold text-gray-800 mt-1">John Doe</p>
+      <p class="text-xs text-gray-500">ID: 20251234</p>
+    </a>
+  </div>
+
+  <!-- Modal for Add Item -->
+  <div id="addItemModal" class="modal-overlay">
+    <div class="modal-container">
+      <h2 class="text-xl font-bold mb-4">Add Item</h2>
+      <form>
+        <div class="mb-4">
+          <label for="itemName" class="block text-sm font-semibold text-gray-700">Item Name</label>
+          <input id="itemName" type="text" class="w-full p-2 border rounded" placeholder="Enter item name">
+        </div>
+        <div class="mb-4">
+          <label for="category" class="block text-sm font-semibold text-gray-700">Category</label>
+          <select id="category" class="w-full p-2 border rounded">
+            <option value="buy-sell">Buy/Sell</option>
+            <option value="lost-found">Lost & Found</option>
+            <option value="assignment-help">Assignment Help</option>
+            <option value="books">Books</option>
+            <option value="electronics">Electronics</option>
+            <option value="furniture">Furniture</option>
+            <option value="clothing">Clothing</option>
+            <option value="services">Services</option>
+            <option value="skill-share">Skill Share</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <button type="submit" class="modal-button neon-hover">Add Item</button>
+      </form>
+      <button id="closeModal" class="mt-4 w-full bg-gray-300 py-2 rounded text-center">Close</button>
+    </div>
+  </div>
+
+  <!-- Modal for Make Request -->
+  <div id="makeRequestModal" class="modal-overlay">
+    <div class="modal-container">
+      <h2 class="text-xl font-bold mb-4">Make a Request</h2>
+      <form>
+        <div class="mb-4">
+          <label for="requestText" class="block text-sm font-semibold text-gray-700">Request Details</label>
+          <textarea id="requestText" class="w-full p-2 border rounded" placeholder="Enter your request here..." rows="4"></textarea>
+        </div>
+        <button type="submit" class="modal-button neon-hover">Submit Request</button>
+      </form>
+      <button id="closeRequestModal" class="mt-4 w-full bg-gray-300 py-2 rounded text-center">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Open the Add Item Modal
+    document.getElementById('addItemButton').addEventListener('click', function () {
+      document.getElementById('addItemModal').style.display = 'block';
+    });
+
+    // Open the Make Request Modal
+    document.getElementById('makeRequestButton').addEventListener('click', function () {
+      document.getElementById('makeRequestModal').style.display = 'block';
+    });
+
+    // Close Modals
+    document.getElementById('closeModal').addEventListener('click', function () {
+      document.getElementById('addItemModal').style.display = 'none';
+    });
+
+    document.getElementById('closeRequestModal').addEventListener('click', function () {
+      document.getElementById('makeRequestModal').style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
